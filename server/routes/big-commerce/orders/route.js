@@ -8,7 +8,7 @@ const pdf = require('html-pdf-node');
 // ----------------------------- Config ----------------------------------
 
 if (process.env.SERVER_ENV === 'prod') {
-  setInterval(() => syncOrders('htw'), 10 * 60 * 1000);
+  //setInterval(() => syncOrders('htw'), 10 * 60 * 1000);
   setInterval(() => syncOrders('sff'), 10 * 60 * 1000);
 }
 
@@ -603,10 +603,15 @@ const getOrderFromCustomer = async (customerId, storeKey) => {
 const getOrderData = async (orderID, storeKey) => {
   const url = `https://api.bigcommerce.com/stores/${storeMap[storeKey].hash}/v2/orders/${orderID}?include=consignments`;
   const order = await fetchJSON(url, storeKey);
+  
+if (!order) {
+    console.warn(`⚠️ Failed to fetch order ${orderID} for store ${storeKey}. Skipping execution.`);
+    return null; 
+  }
 
   const customerId = order.customer_id;
-
   const customerOrders = await getOrderFromCustomer(customerId, storeKey);
+
 
   // Separate consignments shipping info
   const cons = order.consignments?.[0]?.shipping?.[0] || {};
