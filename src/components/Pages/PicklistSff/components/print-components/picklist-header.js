@@ -20,7 +20,7 @@ function PickListHeader({ order }) {
           padding: '0',
         }}
         loading="eager"
-        src="https://cdn11.bigcommerce.com/s-wxzymp3frg/images/stencil/500x200/shirts-new-logo_1726752995__72460.original.png"
+        src="https://cdn11.bigcommerce.com/s-wxzymp3frg/images/stencil/original/image-manager/shirts-new-logo.png?t=1771429193"
         alt="Shirts From Fargo Logo"
       ></img>
       <ShipStationBarcode orderInfo={order} />
